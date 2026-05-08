@@ -1,0 +1,19 @@
+stateDiagram-v2
+    [*] --> Disponible : Création avec quantité > seuil
+    [*] --> StockFaible : Création avec 0 < quantité <= seuil
+    [*] --> Rupture : Création avec quantité = 0
+
+    Disponible --> StockFaible : Vente (quantité descend sous le seuil)
+    StockFaible --> Rupture : Vente (quantité devient 0)
+    
+    Rupture --> Disponible : Réapprovisionnement massif
+    Rupture --> StockFaible : Réapprovisionnement léger
+    
+    StockFaible --> Disponible : Réapprovisionnement
+
+    Disponible --> Inactif : Désactivation manuelle
+    StockFaible --> Inactif : Désactivation manuelle
+    Rupture --> Inactif : Désactivation manuelle
+
+    Inactif --> Disponible : Activation
+    Inactif --> [*] : Suppression définitive

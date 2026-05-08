@@ -1,0 +1,38 @@
+classDiagram
+    class User {
+        +int id
+        +String name
+        +String email
+        +String password
+        +String role
+        +String telephone
+        +boolean is_active
+        +isAdmin() boolean
+        +isGestionnaire() boolean
+    }
+
+    class Category {
+        +int id
+        +String nom
+        +String description
+        +boolean is_active
+        +products() Collection
+        +getProductsCountAttribute() int
+    }
+
+    class Product {
+        +int id
+        +String reference
+        +String nom
+        +float prix_achat
+        +float prix_vente
+        +int quantite
+        +int seuil_alerte
+        +boolean is_active
+        +getMargeAttribute() float
+        +isStockFaible() boolean
+        +isRupture() boolean
+        +getStatutStockAttribute() array
+    }
+
+    Category "1" *-- "0..*" Product : contient

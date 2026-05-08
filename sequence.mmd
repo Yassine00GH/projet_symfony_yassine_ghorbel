@@ -1,0 +1,21 @@
+sequenceDiagram
+    actor Acteur
+    participant Vue as Interface (Blade)
+    participant Ctrl as ProductController
+    participant Model as Product (Eloquent)
+    participant DB as PostgreSQL
+
+    Acteur->>Vue: Remplit le formulaire d'ajout et valide
+    Vue->>Ctrl: POST /products (données)
+    Ctrl->>Ctrl: Valide les données (reference unique, prix > 0)
+    alt Données Invalides
+        Ctrl-->>Vue: Retour avec erreurs de validation
+        Vue-->>Acteur: Affiche les messages d'erreur en rouge
+    else Données Valides
+        Ctrl->>Model: Product::create(données)
+        Model->>DB: INSERT INTO products (...)
+        DB-->>Model: Confirmation (id)
+        Model-->>Ctrl: Objet Produit créé
+        Ctrl-->>Vue: Redirection vers /products avec message "Succès"
+        Vue-->>Acteur: Affiche la liste avec le nouveau produit
+    end

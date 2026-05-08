@@ -1,0 +1,26 @@
+graph TD
+    Admin(["Administrateur"])
+    Gestionnaire(["Gestionnaire"])
+
+    subgraph Système de Gestion de Stock
+        Auth("S'authentifier")
+        G_Users("Gérer les utilisateurs")
+        G_Cat("Gérer les catégories")
+        G_Prod("Gérer les produits")
+        Dashboard("Consulter le Tableau de Bord")
+        Alertes("Recevoir alertes de stock")
+    end
+
+    Admin --> Auth
+    Gestionnaire --> Auth
+
+    Admin --> G_Users
+    Admin --> G_Cat
+    Admin --> G_Prod
+    Admin --> Dashboard
+    Admin --> Alertes
+
+    Gestionnaire --> G_Cat
+    Gestionnaire --> G_Prod
+    Gestionnaire --> Dashboard
+    Gestionnaire --> Alertes
